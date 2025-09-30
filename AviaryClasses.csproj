@@ -1,0 +1,122 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$(SolutionDir)GamePath.props" Condition="Exists('$(SolutionDir)GamePath.props')" />
+
+  <PropertyGroup>
+    <TargetFramework>net481</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="./Info.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="./LocalizedStrings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Compile Remove="references/**/*" />
+    <None Remove="references/**/*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="images\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <!-- Main Wrath Assembly, Publicized -->
+    <Reference Include="Assembly-CSharp" Publicize="true">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <!-- Wrath Assemblies -->
+    <Reference Include="Assembly-CSharp-firstpass.dll" Publicize="true">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Owlcat.Runtime.Core" Publicize="true">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/Owlcat.Runtime.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Owlcat.Runtime.UI" Publicize="true">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/Owlcat.Runtime.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Owlcat.Runtime.Validation" Publicize="true">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/Owlcat.Runtime.Validation.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Owlcat.Runtime.Visual" Publicize="true">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/Owlcat.Runtime.Visual.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UniRx">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/UniRx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <!-- UMM & Harmony -->
+    <Reference Include="0Harmony">
+      <HintPath>$(UMMPath)/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityModManager">
+      <HintPath>$(UMMPath)/UnityModManager.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>$(WrathInstallDir)/Wrath_Data/Managed/Unity.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+
+<ItemGroup>
+		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" IncludeAssets="build; contentfiles" Version="0.4.2" PrivateAssets="all" />
+		<PackageReference Include="ILRepack.MSBuild.Task" Version="2.*" />
+		<PackageReference Include="WW-Blueprint-Core" Version="2.8.6" />
+		<PackageReference Include="MicroUtils.HarmonyAnalyzers" IncludeAssets="runtime; build; native; contentfiles; analyzers" Version="*-*" PrivateAssets="all" />
+	</ItemGroup>
+
+  <Target Name="DeployMod" AfterTargets="Build">
+    <ItemGroup>
+      <Assembly Include="$(OutputPath)\AviaryClasses.dll" />
+      <Assembly Include="$(OutputPath)\BlueprintCore.dll" />
+      <ModConfig Include="$(OutputPath)\Info.json" />
+      <Strings Include="$(OutputPath)\LocalizedStrings.json" />
+      <Images Include="$(OutputPath)\images\**\*" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(Assembly)" DestinationFolder="$(WrathInstallDir)/Mods/$(MSBuildProjectName)" />
+    <Copy SourceFiles="@(ModConfig)" DestinationFolder="$(WrathInstallDir)/Mods/$(MSBuildProjectName)" />
+    <Copy SourceFiles="@(Strings)" DestinationFolder="$(WrathInstallDir)/Mods/$(MSBuildProjectName)" />
+    <Copy SourceFiles="@(Images)"
+          DestinationFiles="@(Images->'$(WrathInstallDir)/Mods/$(MSBuildProjectName)/images/%(RecursiveDir)%(Filename)%(Extension)')" />
+
+  </Target>
+
+</Project>

@@ -1,0 +1,12 @@
+{
+  "Id": "AviaryClasses",
+  "DisplayName": "Aviary Classes",
+  "Author": "",
+  "Version": "1.0.1b",
+  "ManagerVersion": "0.31.0",
+  "Requirements": [],
+  "AssemblyName": "AviaryClasses.dll",
+  "EntryMethod": "AviaryClasses.Main.Load",
+  "HomePage": "",
+  "Repository": ""
+}

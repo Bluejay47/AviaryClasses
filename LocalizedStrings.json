@@ -1,0 +1,477 @@
+[
+  {
+    "Key": "Mod.Name",
+    "ProcessTemplates": false,
+    "enGB": "Aviary Classes"
+  },
+  {
+    "Key": "ArcaneSkirmisher.Name",
+    "enGB": "Arcane Skirmisher",
+    "ProcessTemplates": false
+  }, 
+  {
+    "Key": "ArcaneSkirmisher.Description",
+    "enGB": "Masters of both mounted combat and arcane marksmanship, these versatile warriors ride into battle atop mounts imbued with magical speed and agility. With a swift gesture, they can enchant their arrows with elemental forces or debilitating effects, turning each shot into a potentially game-changing strike from the saddle.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeSensate.Name",
+    "enGB": "Life Sensate",
+    "ProcessTemplates": false
+  }, 
+  {
+    "Key": "LifeSensate.Description",
+    "enGB": "In stark contrast to their more explosive brethren, Life Sensates have learned to harness the raw power of the elements not to scorch their foes, but to mend the wounds of their allies. These unique kineticists hone their ability to channel forces through rigorous life long studies into primal life energies learning to revive, heal, and protect those around them. By forgoing the volatile aspects of kineticism, Life Sensates achieve a profound mastery over life-affirming elements, making them invaluable assets to any party seeking to weather the harshest of challenges.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "TriceratopsStatuetteItem.Description",
+    "enGB": "This seemingly simple statue swirls with the primal energy of Triceratop heroes of ages past. Using it may bind the spirit of those heroes to your cause. Echoes from the energies whisper the name 'Bismuth'.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "AVC.TriceratopsStatuette.Ability.Name",
+    "enGB": "Grant Triceratops Companion",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "AVC.TriceratopsStatuette.Ability.Description",
+    "enGB": "This seemingly simple statue swirls with the primal energy of Triceratop heroes of ages past. Using it may bind the spirit of those heroes to your cause. Echoes from the energies whisper the name 'Bismuth'.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "AVC.TriceratopsStatuette.Progression.Name",
+    "enGB": "Triceratops Companion Progression",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "AVC.TriceratopsStatuette.Progression.Description",
+    "enGB": "Your Triceratops companion grows in power as you level, gaining animal companion ranks that allow it to benefit from feats like Boon Companion.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "AVC.TriceratopsStatuette.Feature.Name",
+    "enGB": "Triceratops Companion",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "AVC.TriceratopsStatuette.Feature.Description",
+    "enGB": "You gain a Triceratops animal companion. The companion's effective level is your character level minus 4 (minimum 1). This uses the standard animal companion system and works with Boon Companion and other animal companion feats.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeStudies.Name",
+    "enGB": "Life Studies" ,
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeStudies.Description",
+    "enGB": "A life sensate's base Will save bonus from the kineticist class is equal to 2 + 1/2 their kineticist level, and their base Reflex and Fortitude save bonuses are equal to 1/3 their kineticist level.\nA life sensate uses their Intelligence modifier instead of their Constitution modifier to determine their damage with wild talents, the DCs of Constitution-based wild talents, the durations of wild talents with Constitution-based durations, their bonus on concentration checks for wild talents, and any other Constitution-based effects of all their wild talents.\nThis alters the kinesticist's class skills and base savings throws and the key ability score of wild talents.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "LifeFont.Description",
+    "enGB": "At 3rd level, a life sensate gains a +1 bonus on attack rolls and damage rolls with their kinetic blasts. The damage bonus doesn't apply to kinetic blade, kinetic whip, or other infusions that don't apply the damage bonus from elemental overflow.\nThis bonus increases by 1 at 6th level and every 3 levels thereafter.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "LifeFont.Name",
+    "enGB": "Life Font",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeAttunement.Description",
+    "enGB": "A life sensate develops an attunement to life energies emanating from the Positive Energy Plane through extensive studies into the nature of that realm. This understanding allows the sensate to tap into the water-like torrents of life energies flowing into this realm for both offensive and healing purposes. A life sensate can not access other elemental energies.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeAttunement.Name",
+    "enGB": "Life Attunement",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "EmpoweredHealing.Description",
+    "enGB": "A growing sensitivity to the life energies that emenate from the Positive Energy Plane empowers the life sensate's healing abilities. The life sensate's Kinetic Healer ability is now empowered as per the Empower metamagic.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "EmpoweredHealing.Name",
+    "enGB": "Metakinesis - Empowered Kinetic Healing",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "HealingWildTalentSelection.Name",
+    "enGB": "Life Infused Wild Talents",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "CorrectedSupercharge.Description",
+    "enGB": "At 11th level, when using 'Gather Power' as a move action, a kineticist can reduce the total burn cost of a single infusion by 2 points instead of 1. When using gather power for 1 full round, she can reduce the burn cost of a single infusion by 3 points instead of 2.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "CorrectedSupercharge.Name",
+    "enGB": "Supercharge",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LingeringEnergies.Description",
+    "enGB": "Residual energies from the torrents that flow into the life sensate during rest heal burn from the sensate's abilities. The sensate will instantly heal a number of burn points per day equal to the the sensate's Intelligence bonus modifier per rest. The life sensate does not control when these residuals are used. The energies will be used to compensate for burn if any lingering energy exists.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "LingeringEnergies.Name",
+    "enGB": "Lingering Energies",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LingeringEnergiesResource.Description",
+    "enGB": "Residual energies from the torrents that flow into the life sensate during rest heal burn from the sensate's abilities. The sensate will instantly heal a number of burn points per day equal to the the sensate's Intelligence bonus modifier per rest. The life sensate does not control when these residuals are used. The energies will be used to compensate for burn if any lingering energy exists.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "LingeringEnergiesResource.Name",
+    "enGB": "Lingering Energies Resource",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "SelectiveHealing.Description",
+    "enGB": "The life sensate has learned to better control the application of energies, allowing them to select the targets of their healing bursts.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "SelectiveHealing.Name",
+    "enGB": "Metakinesis (Selective Healing Burst)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "SelectiveHealingAbility.Description",
+    "enGB": "The life sensate has learned to better control the application of energies, allowing them to select the targets of their healing bursts.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "SelectiveHealingAbility.Name",
+    "enGB": "Metakinesis (Selective Healing Burst)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "KeenEyedAdventurer2.Name",
+    "enGB": "Keen-Eyed Adventurer (AC)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "CantripSpecialization.Name",
+    "enGB": "Cantrip Specialization",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "CantripSpecialization.Description",
+    "enGB": "Focus, perception, and a keen-eye are the hallmarks of good adventurers. It's amazing what one can do when these attributes are applied to something as simple as cantrips. The keen-eyed adventurer adds their intelligence bonus as damage to attacks with Ray of Frost, Jolt, Ignition, and Acid Splash. Cantrip Specialization is replaced by Cantrip Mastery at archetype level 20.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "TorrentFocusSelection.Name",
+    "enGB": "Torrent Selection",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "TorrentFocusSelection.Description",
+    "enGB": "At 1st level, a life sensate chooses which aspect of the torrents of life energy that flow into this plane that they will develop. They gain Shroud of Water as a bonus wild talent.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "SecondTorrentFocusSelection.Name",
+    "enGB": "Torrent Mastery",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "SecondTorrentFocusSelection.Description",
+    "enGB": "At 15th level, a life sensate masters the totality of the torrents of life energy that flow into this plane.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "LifeBubble.Name",
+    "enGB": "Life Bubble",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeBubble.Description",
+    "enGB": "The life sensate may accept 1 burn to focus their energies into a shield that grants all allies within a 25-foot radius limited protection from damage of whichever one of five energy types you select: acid, cold, electricity, fire, or sonic. The subject gains resist energy 10 against the energy type chosen, meaning that each time the creature is subjected to such damage (whether from a natural or magical source), that damage is reduced by 10 points before being applied to the creature's hit points. The value of the energy resistance granted increases to 20 points at 7th level and to a maximum of 30 points at 11th level.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "LifeBubbleFire.Name",
+    "enGB": "Life Bubble, Resist Fire",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeBubbleAcid.Name",
+    "enGB": "Life Bubble, Resist Acid",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeBubbleCold.Name",
+    "enGB": "Life Bubble, Resist Cold",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeBubbleSonic.Name",
+    "enGB": "Life Bubble, Resist Sonic",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LifeBubbleElec.Name",
+    "enGB": "Life Bubble, Resist Electricity",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredCantrips.Name",
+    "enGB": "Metamagic? (Bolstered Cantrips)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredCantrips.Description",
+    "enGB": "Through extensive trial and error with cantrips, the keen-eyed adventurer learns to imbue additional power into their Jolt, Ignition, Ray of Frost and Acid Splash cantrips. When enabled, these cantrips deal 1 extra point of damage per dice rolled and have the ability to ricochet to other targets.\nBenefit: Deal 1 extra point of damage per damage dice rolled. 1 to 3 additional targets within 20 feet of the main target may take ricochet damage... depending on how the whims of fate favor you this day.",
+    "ProcessTemplates": true
+  },  
+  {
+    "Key": "OverpoweredVortex.Name",
+    "enGB": "Metamagic? (Bolstered Vortex)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortex.Description",
+    "enGB": "Tinkering with the casting patterns of your Elemental Vortex has led to some unexpected results. It might be a bit haphazard but there is no denying... it is more powerful. Elemental Vortex will randomly strike out at enemies near the area of effect with elemental bolts of energy for 10d3 damage each turn Elemental Vortex is active. All good adventurers know that inevitably they are at the whims of varying fate, and you may find that the number of affected enemies varies with your luck.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "KineticHealerBuff.Name",
+    "enGB": "Expanded Healing",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "KineticHealerBuff.Description",
+    "enGB": "Through continued intensive studies the life sensate has learned to make the most of their healing capabilties. The life sensate's Kinetic Healer ability is now maximized as per the Maximize metamagic.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "HealingBurstBuff.Name",
+    "enGB": "Ultimate Healing",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "HealingBurstBuff.Description",
+    "enGB": "Through continued intensive studies the life sensate has learned to make the most of their healing capabilties. The life sensate's Healing Burst ability is now maximized as per the Maximize metamagic.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "KineticRestoration2.Name",
+    "enGB": "Kinetic Instauration",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "KineticRestoration2.Description",
+    "enGB": "Kinetic Instauration immediately ends any and all of the following adverse conditions affecting the target: ability damage, blinded, confused, dazed, dazzled, diseased, exhausted, fatigued, nauseated, poisoned, sickened, and stunned. Additionally, this ability can target allies as well as the life sensate.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "KineticRestoration3.Name",
+    "enGB": "Kinetic Instauration, Mass",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "KineticRestoration3.Description",
+    "enGB": "Mass Kinetic Instauration immediately ends any and all of the following adverse conditions affecting the target: ability damage, blinded, confused, dazed, dazzles, diseased, exhausted, fatigued, nauseated, poisoned, sickened, and stunned. This ability targets an area.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "EmpoweredHealing2.Name",
+    "enGB": "Metakinesis - Empowered Healing Burst",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "EmpoweredHealing2.Description",
+    "enGB": "A growing sensitivity to the life energies that emenate from the Positive Energy Plane empowers the life sensate's healing abilities. The life sensate's Healing Burst ability is now empowered as per the Empower metamagic.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "AscendantCantrips.Name",
+    "enGB": "Ascendant Cantrips",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "AscendantCantrips.Description",
+    "enGB": "Through intensive study of elemental forces and precision focus, the keen-eyed adventurer has learned to make their basic cantrips transcend normal elemental resistance. Your Ignition, Ray of Frost, Jolt, and Acid Splash cantrips now ignore elemental resistance and immunity, striking true regardless of the target's natural or magical protections against these energy types.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "LingeringEnergiesBuff.Name",
+    "enGB": "Lingering Energies",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "LingeringEnergiesBuff.Description",
+    "enGB": "Charges remaining - Each charge prevents 1 point of burn. Maximum charges based on Intelligence modifier.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "Dustwalker.Name",
+    "enGB": "Dustwalker",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "Dustwalker.Description",
+    "enGB": "These neutral-aligned monks have mastered the art of guiding caravans through treacherous desert routes and mountain passes. Drawing from ancient traditions of balance and survival, Dustwalkers forsake some traditional monastic abilities in favor of practical skills for leading groups through dangerous terrain. They form bonds with animal companions and develop enhanced survival instincts, making them invaluable guides for those seeking safe passage through the world's most perilous regions.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "DustwalkerLoreNature.Name",
+    "enGB": "Desert Lore",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerLoreNature.Description",
+    "enGB": "A dustwalker gains Lore (nature) as a class skill.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerFlurryOfBlows.Name",
+    "enGB": "Caravan Guard Flurry",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerFlurryOfBlows.Description",
+    "enGB": "At 1st level, a dustwalker can make a flurry of blows as a full attack. When making a flurry of blows, the dustwalker can make one additional attack at their highest base attack bonus. This additional attack stacks with the bonus attacks from haste and other similar effects. When using this ability, the dustwalker can make these attacks with any combination of their unarmed strikes and weapons that have the monk special weapon quality. They take no penalty for using multiple weapons when making a flurry of blows, but they do not gain any additional attacks beyond what's already granted by the flurry for doing so. At 11th level, a dustwalker can make an additional attack at their highest base attack bonus whenever they make a flurry of blows.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerProficiencies.Name",
+    "enGB": "Caravan Weapon Training",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerProficiencies.Description",
+    "enGB": "A dustwalker is proficient with all simple and martial weapons and with light armor, instead of a monk's usual weapon and armor proficiencies. When wearing armor, using a shield, or carrying a medium or heavy load, a dustwalker loses their AC bonus, as well as their fast movement and flurry of blows abilities.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerMountFeature.Name",
+    "enGB": "Guide's Mount",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerMountFeature.Description",
+    "enGB": "At 1st level a dustwalker gains a horse as a mount. A dustwalker may spend 1 point from their ki pool to grant their mount temporary hit points equal to twice their level for 1 hour per level.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerDevotedGuardian.Name",
+    "enGB": "Caravan Guardian",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerDevotedGuardian.Description",
+    "enGB": "A dustwalker gains a bonus on initiative rolls equal to 1/2 their monk level. At 20th level, a dustwalker's initiative roll is automatically a natural 20.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerMountedCombat.Name",
+    "enGB": "Mounted Guide Combat",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerMountedCombat.Description",
+    "enGB": "A dustwalker may select mounted combat feats as bonus feats.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerDesertTerrain.Name",
+    "enGB": "Desert Specialist",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerDesertTerrain.Description",
+    "enGB": "While in desert terrain, a dustwalker gains a +2 bonus on initiative checks and Lore (nature), Perception, and Stealth skill checks. Each time the dustwalker selects an additional favored terrain, the skill bonus and initiative bonus in any one favored terrain (including the one just selected, if so desired) increases by +2.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerDesertExpertise.Name",
+    "enGB": "Desert Mastery",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerDesertExpertise.Description",
+    "enGB": "At 3rd level, a dustwalker learns total expertise over desert terrain they have already selected for favored terrain. When dealing with creatures in desert terrain, the dustwalker treats their favored terrain bonus for desert as a favored enemy bonus against those creatures. This bonus overlaps (doesn't stack with) bonuses gained when fighting a favored enemy. The dustwalker gains a +1 insight bonus on saving throws against fire effects.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerKiWeapon.Name",
+    "enGB": "Spirit-Guided Weapons",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerKiWeapon.Description",
+    "enGB": "At 4th level, as a swift action, a dustwalker may spend 1 point from their ki pool to grant any weapon they wield (including their unarmed strike) a +1 enhancement bonus on attack and damage rolls, increasing by +1 per four levels after 4th to a maximum bonus of +5 at 20th level, until the end of their next turn.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerNatureLore.Name",
+    "enGB": "Terrain Mastery",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerNatureLore.Description",
+    "enGB": "A dustwalker gains a +3 bonus on all checks involving Lore (nature). If they have 10 or more ranks in Lore (nature), this bonus increases to +6.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerPoisonResistance.Name",
+    "enGB": "Desert Resistance",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerPoisonResistance.Description",
+    "enGB": "At 5th level, a dustwalker becomes completely immune to poison.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerAbyssTerrain.Name",
+    "enGB": "Planar Guide",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerAbyssTerrain.Description",
+    "enGB": "While in abyssal terrain, a dustwalker gains a +2 bonus on initiative checks and Lore (nature), Perception, and Stealth skill checks. Each time the dustwalker selects an additional favored terrain, the skill bonus and initiative bonus in any one favored terrain (including the one just selected, if so desired) increases by +2.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerAbyssExpertise.Name",
+    "enGB": "Planar Mastery",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerAbyssExpertise.Description",
+    "enGB": "At 8th level, a dustwalker learns total expertise over abyssal terrain. When dealing with creatures in abyssal terrain, the dustwalker treats their favored terrain bonus for the Abyss as a favored enemy bonus against those creatures. This bonus overlaps (doesn't stack with) bonuses gained when fighting a favored enemy.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerEnhancedFlurry.Name",
+    "enGB": "Master Guardian Techniques",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerEnhancedFlurry.Description",
+    "enGB": "At 11th level, a dustwalker can make an additional attack at their highest base attack bonus whenever they make a flurry of blows. This stacks with the first attack from this ability and additional attacks from haste and similar effects.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerCamouflage.Name",
+    "enGB": "Desert Camouflage",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerCamouflage.Description",
+    "enGB": "A dustwalker of 13th level or higher can, as a move action, use the Stealth skill to hide in any of their favored terrains, even in combat.",
+    "ProcessTemplates": false
+  }
+]
