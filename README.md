@@ -148,7 +148,7 @@ Each archetype offers completely different approaches to familiar classes:
 - **BlueprintCore** framework (v2.8.6+)
 
 ### **Compatibility**
-- **Not Save-compatible:** Must start a new game to use. Can not remove during playthrough.
+- **Not Save-compatible:** Can NOT remove during playthrough.
 - **Balanced:** Maintains game balance while offering unique mechanics
 
 ### **Installation**
