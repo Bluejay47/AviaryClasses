@@ -1,6 +1,9 @@
 # Aviary Classes - Custom Archetypes for Pathfinder: Wrath of the Righteous
 
-A comprehensive mod adding **four unique archetypes** and a **magical companion item** to expand your character build options with innovative mechanics and playstyles.
+A mod adding **four unique archetypes** and a **magical companion item** to expand your character build options with innovative mechanics and playstyles.
+
+- This mod is still in beta, please do be careful using it as it may cause issues with your save file.
+- The mod is balanced for Core and below to add some interesting twists to playthroughs. I have not tested it on higher difficulties.
 
 ## 🦅 **NEW ARCHETYPES**
 
@@ -21,7 +24,7 @@ A comprehensive mod adding **four unique archetypes** and a **magical companion 
 - **Level 13:** **Kinetic Instauration** - Enhanced restoration removing multiple conditions
 - **Level 17:** **Mass Kinetic Instauration** - Area-effect restoration for entire party
 
-**Playstyle:** Pure support healer with Intelligence-based mechanics and a visual buffer system (Lingering Energies buff shows remaining charges). **Important:** Limited to Water element only, which significantly reduces damage potential compared to standard Kineticists (no access to powerful Fire/Earth damage abilities). This trade-off balances the powerful healing capabilities and eliminates the burn management that typically constrains Kineticists.
+**Playstyle:** Pure support healer with Intelligence-based mechanics and a visual buffer system (Lingering Energies buff shows remaining charges). **Important:** Limited to Water element only, which significantly reduces damage potential compared to standard Kineticists (no access to powerful Fire/Earth damage abilities). This trade-off balances the powerful healing capabilities and eliminates the burn management of typically Kineticists.
 
 ---
 
@@ -47,6 +50,8 @@ A comprehensive mod adding **four unique archetypes** and a **magical companion 
 
 ### 🔮 **Keen-Eyed Adventurer** (Witch Archetype)
 *"Focus, perception, and a keen-eye are the hallmarks of good adventurers. It's amazing what one can do when these attributes are applied to something as simple as cantrips."*
+
+An alternative take on the existing Keen-Eyed Adventurer 
 
 **Key Changes:**
 - **Cantrip specialization** with Intelligence scaling damage
@@ -104,7 +109,7 @@ A comprehensive mod adding **four unique archetypes** and a **magical companion 
 - Grants a **permanent Triceratops animal companion**
 - Provides **full 1:1 level progression** with your character
 - **Immediate proper level scaling** - companion spawns at correct level
-- **Compatible with animal companion feats** (though Boon Companion becomes unnecessary)
+- **Compatible with animal companion feats** (though Boon Companion is unnecessary)
 
 **Perfect for:** Any character build that wants a powerful companion without investing in animal companion classes.
 
