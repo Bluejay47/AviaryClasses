@@ -158,13 +158,3 @@ Each archetype offers completely different approaches to familiar classes:
 4. Start/continue your game - new options available immediately
 
 ---
-
-## 🌟 **WHY CHOOSE AVIARY CLASSES?**
-
-- **Unique Mechanics:** Each archetype fundamentally changes how base classes play
-- **Quality Implementation:** Built with BlueprintCore for stability and compatibility
-- **Innovative Features:** Intelligence-based Kineticist, ranged Spell Combat, scaling cantrips
-- **Animal Companion Integration:** Multiple paths to gain loyal companions
-- **Balanced Design:** Powerful but not overpowered, maintaining game balance
-
----
