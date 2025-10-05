@@ -69,6 +69,7 @@ namespace AviaryClasses {
                     ArcaneSkirmisher.Configure();
                     KeenEyedAdventurer2.Configure();
                     Dustwalker.Configure();
+                    BeastTamer2.Configure();
                     MonkArchetypeAlignmentFix.Configure();
                     CharlatansNecklaceFix.Configure();
                     TriceratopsStatuetteItemAlt.Configure();

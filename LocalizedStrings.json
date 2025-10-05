@@ -473,5 +473,135 @@
     "Key": "DustwalkerCamouflage.Description",
     "enGB": "A dustwalker of 13th level or higher can, as a move action, use the Stealth skill to hide in any of their favored terrains, even in combat.",
     "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerPackLeader.Name",
+    "enGB": "Animal Handler",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerPackLeader.Description",
+    "enGB": "At 9th level, a dustwalker's extensive experience managing pack animals and mounts during long caravan journeys translates into exceptional rapport with beasts. All animal companions within 30 feet of the dustwalker gain a +10 foot enhancement bonus to their movement speed, as they respond naturally to the dustwalker's practiced commands and movements.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerPackLeader.BuffName",
+    "enGB": "Animal Handler",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "DustwalkerPackLeader.BuffDescription",
+    "enGB": "This animal companion gains a +10 foot enhancement bonus to movement speed from responding to the dustwalker's practiced handling.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamer2.Name",
+    "enGB": "Beast Tamer (AC)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamer2.Description",
+    "enGB": "A bard archetype that specializes in using bardic performances to enhance animal companions and pets only, not human party members.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerBonusTalentSelection.Name",
+    "enGB": "Beast Tamer Bonus Talent",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerBonusTalentSelection.Description",
+    "enGB": "Select a bonus talent to enhance your beast mastery abilities.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastMasterBond.Name",
+    "enGB": "Beast Master's Bond",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastMasterBond.Description",
+    "enGB": "Your deep connection with animals and nature grants you unique insights into the primal world. This bond allows you to develop nature-themed abilities as you grow in power.\n\nYou gain Lore (Nature) and Athletics as class skills.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "ReleaseTheBees.Name",
+    "enGB": "Release The Bees!",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "ReleaseTheBees.Description",
+    "enGB": "You summon a swarm of angry bees that surge toward your enemy, dealing 1d3 points of force damage per two caster levels plus your Charisma bonus. This spell targets a single creature within 30 feet.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerReleaseTheBeesFeature.Name",
+    "enGB": "Release The Bees",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerReleaseTheBeesFeature.Description",
+    "enGB": "You have learned to summon swarms of angry bees to attack your enemies. This cantrip is automatically added to your known spells.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerInspireGreatness.Name",
+    "enGB": "Inspire Greatness (Pets Only)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerInspireGreatness.Description",
+    "enGB": "A bard of 9th level or higher can use his performance to inspire greatness in all animal companions and summoned creatures within 30 feet, granting extra fighting capability. A creature inspired with greatness gains 2 bonus {g|Encyclopedia:Hit_Dice}Hit Dice{/g} (d10s), the commensurate number of {g|Encyclopedia:Temporary_HP}temporary hit points{/g} (apply the target's {g|Encyclopedia:Constitution}Constitution{/g} modifier, if any, to these bonus Hit Dice), a +2 competence {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Attack}attack rolls{/g}, and a +1 competence bonus on {g|Encyclopedia:Saving_Throw}Fortitude saves{/g}.\n\nThis version only affects animal companions and summoned creatures, not party members.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerInspireHeroics.Name",
+    "enGB": "Inspire Heroics (Pets Only)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerInspireHeroics.Description",
+    "enGB": "A bard of 15th level or higher can inspire tremendous heroism in all animal companions and summoned creatures within 30 feet. Inspired creatures gain a +4 morale {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Saving_Throw}saving throws{/g} and a +4 dodge bonus to {g|Encyclopedia:Armor_Class}AC{/g}. The effect lasts for as long as the targets are able to witness the performance.\n\nThis version only affects animal companions and summoned creatures, not party members.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerSoothingPerformance.Name",
+    "enGB": "Soothing Performance (Pets Only)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerSoothingPerformance.Description",
+    "enGB": "A bard of 12th level or higher can use his performance to create an effect equivalent to a {g|SpellsMassCureSeriousWounds}cure serious wounds, mass{/g}, using the bard's level as the {g|Encyclopedia:Caster_Level}caster level{/g}. In addition, this performance removes the {g|ConditionFatigued}fatigued{/g}, {g|ConditionSickened}sickened{/g}, and {g|ConditionShaken}shaken{/g} condition from all those affected. Using this ability requires 4 {g|Encyclopedia:Combat_Round}rounds{/g} of continuous performance.\n\nThis version only affects animal companions and summoned creatures, not party members.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerSoothingPerformanceFeature.Name",
+    "enGB": "Soothing Performance (Pets Only)",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerSoothingPerformanceFeature.Description",
+    "enGB": "A bard of 12th level or higher can use his performance to create an effect equivalent to a {g|SpellsMassCureSeriousWounds}cure serious wounds, mass{/g}, using the bard's level as the {g|Encyclopedia:Caster_Level}caster level{/g}. In addition, this performance removes the {g|ConditionFatigued}fatigued{/g}, {g|ConditionSickened}sickened{/g}, and {g|ConditionShaken}shaken{/g} condition from all those affected. Using this ability requires 4 {g|Encyclopedia:Combat_Round}rounds{/g} of continuous performance.\n\nThis version only affects animal companions and summoned creatures, not party members.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerFriendToAnimals.Name",
+    "enGB": "Friend to Animals",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerFriendToAnimals.Description",
+    "enGB": "Your natural affinity for animals grants powerful protection to your companions. All animal companions and summoned creatures within 30 feet of you gain a bonus on all {g|Encyclopedia:Saving_Throw}saving throws{/g} equal to your {g|StatCharisma}Charisma{/g} {g|Encyclopedia:Bonus}bonus{/g}.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTactics.Name",
+    "enGB": "Pack Tactics",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTactics.Description",
+    "enGB": "You have learned to coordinate with your animal companions and summoned creatures as if they were trained warriors. Choose one {g|Encyclopedia:Teamwork}teamwork feat{/g}. You share the effects of this teamwork feat with your animal companion and all creatures you summon within 30 feet of you. This allows your companions to benefit from teamwork tactics even if they don't have the feat themselves.",
+    "ProcessTemplates": false
   }
 ]

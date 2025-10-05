@@ -1,6 +1,6 @@
 # Aviary Classes - Custom Archetypes for Pathfinder: Wrath of the Righteous
 
-A mod adding **four unique archetypes** and a **magical companion item** to expand your character build options with innovative mechanics and playstyles.
+A mod adding **five unique archetypes** and a **magical companion item** to expand your character build options with innovative mechanics and playstyles.
 
 - This mod is still in beta, please do be careful using it as it may cause issues with your save file.
 - The mod is balanced for Core and below to add some interesting twists to playthroughs. I have not tested it on higher difficulties.
@@ -24,7 +24,7 @@ A mod adding **four unique archetypes** and a **magical companion item** to expa
 - **Level 13:** **Kinetic Instauration** - Enhanced restoration removing multiple conditions
 - **Level 17:** **Mass Kinetic Instauration** - Area-effect restoration for entire party
 
-**Playstyle:** Pure support healer with Intelligence-based mechanics and a visual buffer system (Lingering Energies buff shows remaining charges). **Important:** Limited to Water element only, which significantly reduces damage potential compared to standard Kineticists (no access to powerful Fire/Earth damage abilities). This trade-off balances the powerful healing capabilities and eliminates the burn management of typically Kineticists.
+**Playstyle:** Pure support healer with Intelligence-based mechanics and a visual buffer system (Lingering Energies buff shows remaining charges). **Important:** Limited to Water element only, which significantly reduces damage potential compared to standard Kineticists (no access to powerful Fire/Earth damage abilities). This trade-off balances the powerful healing capabilities and eliminates the burn management of typical Kineticists.
 
 ---
 
@@ -38,7 +38,7 @@ A mod adding **four unique archetypes** and a **magical companion item** to expa
 - **Specialized archery feats** progression
 
 **Level Progression:**
-- **Level 1:** Arcane Mount, Ranged Spell Combat (Shortbow), Weapon Focus
+- **Level 1:** Arcane Mount, Ranged Spell Combat (Shortbow), Weapon Focusclaude
 - **Level 2:** **Ranged Spell Strike** - Apply touch spells through arrows
 - **Level 8:** **Dimensional Ride** - Teleport with your mount
 - **Level 14:** **Greater Dimensional Ride** - Enhanced mobility options
@@ -46,9 +46,11 @@ A mod adding **four unique archetypes** and a **magical companion item** to expa
 
 **Playstyle:** Mobile mounted archer combining spellcasting with precise ranged attacks, ideal for hit-and-run tactics and battlefield control.
 
+**🔧 Bug Fix:** This mod fixes an old vanilla bug where Arcane Weapon Enchantment (with Enduring Blade active) would fail to work while mounted. The enchantments now correctly apply to your weapon regardless of mount status!
+
 ---
 
-### 🔮 **Keen-Eyed Adventurer** (Witch Archetype)
+### 🔮 **Keen-Eyed Adventurer (AC Version)** (Witch Archetype)
 *"Focus, perception, and a keen-eye are the hallmarks of good adventurers. It's amazing what one can do when these attributes are applied to something as simple as cantrips."*
 
 An alternative take on the existing Keen-Eyed Adventurer 
@@ -82,16 +84,47 @@ An alternative take on the existing Keen-Eyed Adventurer
 
 **Level Progression:**
 - **Level 1:** Guide's Mount (horse companion + ki enhancement), Caravan Weapon Training, Desert Lore
-- **Level 2:** Caravan Guardian (+initiative bonus), Mounted Guide Combat (mounted combat feats)
-- **Level 3:** Desert Specialist (+2 initiative/skills in desert), Desert Mastery (favored enemy bonus vs creatures in desert + fire resistance)
+- **Level 2:** Caravan Guardian (+initiative bonus), Mounted Guide Combat (mounted combat feats), Desert Specialist (+2 initiative/skills in desert)
+- **Level 3:** Desert Mastery (favored enemy bonus vs creatures in desert + fire resistance)
 - **Level 4:** Spirit-Guided Weapons (ki weapon enhancement), Terrain Mastery (+3/+6 Lore Nature bonus)
 - **Level 5:** Desert Hardening (poison immunity)
-- **Level 6:** Planar Guide (+2 initiative/skills in Abyss terrain)
+- **Level 7:** Planar Guide (+2 initiative/skills in Abyss terrain)
 - **Level 8:** Planar Mastery (favored enemy bonus vs creatures in abyssal terrain)
+- **Level 9:** **Animal Handler** - All animal companions within 30 feet gain +10 feet movement speed (from the dustwalker's caravan expertise)
 - **Level 11:** Master Guardian Techniques (additional flurry attack)
 - **Level 13:** Desert Camouflage (stealth in favored terrains as move action)
 
 **Playstyle:** Versatile mounted warrior combining survival expertise, terrain mastery, and enhanced combat abilities. Perfect for neutral-aligned characters who want practical skills, animal companionship, and flexibility in weapon choices while maintaining core monk combat effectiveness.
+
+---
+
+### 🎵 **Beast Tamer (AC Version)** (Bard Archetype) - STILL IN ALPHA
+*"You have learned to coordinate with your animal companions and summoned creatures as if they were trained warriors. Your performances inspire not your allies, but the beasts who fight alongside you."*
+
+**Key Changes:**
+- **Pet-focused bardic performances** - All party-wide buffs converted to pet/summon-only versions
+- **Animal companion** at level 4 with progression (levels 5-20)
+- **Enhanced summon abilities** with teamwork feat sharing
+- **Nature-themed talents** through Beast Master's Bond pseudo-mystery
+
+**Level Progression:**
+- **Level 1:** Beast Master's Bond (enables nature revelation selections during progression), **Release The Bees** cantrip (1d3 force damage per 2 caster levels + Charisma bonus)
+- **Level 4:** Animal Companion Selection
+- **Levels 5-20:** Animal Companion Rank progression
+- **Level 6:** Bonus Talent Selection (Oracle Nature Mystery revelations: Friend to Animals, Nature Whispers, Spirit of Nature)
+- **Level 9:** **Inspire Greatness (Pets Only)** - +2 HD, temp HP, +2 attack, +1 Fort saves for pets/summons only
+- **Level 11:** Superior Summoning
+- **Level 12:** **Soothing Performance (Pets Only)**, Bonus Talent Selection, **Pack Tactics** (shares one teamwork feat with pets/summons within 30 feet)
+- **Level 15:** **Inspire Heroics (Pets Only)** - +4 morale to saves, +4 dodge to AC for pets/summons only
+- **Levels 16 & 18:** Bonus Talent Selection
+
+**Pack Tactics Feature:**
+- Choose one teamwork feat to share with your animal companion and summons
+- 30-foot aura around the Beast Tamer (companions must stay close)
+- Inspired by Azata's Life-Bonding Friendship but balanced for regular class
+
+**Playstyle:** Pack leader who stays in the thick of combat, coordinating a small army of beasts and summons through bardic performances and teamwork tactics. Sacrifices party support for powerful pet-focused abilities. Adds some
+feats automatically to alleviate heavy feat investments to make summons style play more flexible.
 
 ---
 
@@ -113,6 +146,8 @@ An alternative take on the existing Keen-Eyed Adventurer
 
 **Perfect for:** Any character build that wants a powerful companion without investing in animal companion classes.
 
+Note: This replaces the existing Bismuth statue, and right now is available both in a Defender's Heart merchant and the "normal" location. The Defender's Heart version will go away when the mod is finalized.
+
 ---
 
 ## 🎯 **GAMEPLAY IMPACT**
@@ -123,19 +158,22 @@ Each archetype offers completely different approaches to familiar classes:
 - **Arcane Skirmisher:** Enable mounted ranged Magus builds with dimensional mobility
 - **Keen-Eyed Adventurer:** Make cantrips viable as primary damage source through metamagic-like enhancements
 - **Dustwalker:** Neutral-aligned monk focused on practical survival and leadership over mystical abilities
+- **Beast Tamer:** Convert Bard from party buffer to pet/summon coordinator with teamwork tactics in attempt to make summons oriented play more flexible
 
 ### **Mechanical Innovation**
 - **Intelligence-based Kineticist** with no burn mechanics (balanced by Water-only element restriction)
-- **Ranged Spell Combat** and **Spell Strike** for archery builds
+- **Ranged Spell Combat** and **Spell Strike** for mounted archery builds
 - **Scaling cantrip damage** with metamagic-like enhancements and ricochet effects
 - **Full animal companion integration** across multiple archetypes
-- **Elemental restriction for balance** - Life Sensate trades damage potential for healing mastery
+- **Elemental restriction for balance** - Life Sensate trades damage potential for healing
+- **Teamwork feat sharing via aura** - Beast Tamer's Pack Tactics inspired by mythic-level mechanics but balanced for regular classes
 
 ### **Party Synergy**
-- Life Sensate provides unparalleled healing support
+- Life Sensate provides healing support
 - Arcane Skirmisher offers mobile magical archery
-- Keen-Eyed Adventurer delivers consistent AoE damage
-- Dustwalker brings survival expertise and neutral alignment flexibility
+- Keen-Eyed Adventurer delivers practical cantrip usage
+- Dustwalker brings survival expertise and alignment flexibility to Monks
+- Beast Tamer coordinates pet-based parties with enhanced summons and teamwork tactics
 - Multiple animal companions expand tactical options
 
 ---
@@ -145,7 +183,6 @@ Each archetype offers completely different approaches to familiar classes:
 ### **Requirements**
 - **Pathfinder: Wrath of the Righteous** (base game)
 - **Unity Mod Manager**
-- **BlueprintCore** framework (v2.8.6+)
 
 ### **Compatibility**
 - **Not Save-compatible:** Can NOT remove during playthrough.
@@ -153,8 +190,60 @@ Each archetype offers completely different approaches to familiar classes:
 
 ### **Installation**
 1. Install Unity Mod Manager
-2. Download and extract Aviary Classes to your mods folder
-3. Enable the mod in UMM
+2. Install .zip release via UMM
 4. Start/continue your game - new options available immediately
+
+---
+
+## 🔧 **OTHER FIXES / CHANGES**
+
+### **Enduring Blade Mount Fix**
+Fixes vanilla bug where Arcane Weapon Enchantment doesn't work when Enduring Blade is active and the Magus is mounted. The fix prevents the mount's weapon enchantment logic from clearing the rider's weapon pool.
+
+### **Magic Deceiver + Red Salamandra Ring Compatibility** ✨
+**The Change**: Allows Magic Deceiver archetype to use item-granted temporary spells while maintaining Magic Fusion balance.
+
+**The Problem**:
+- Magic Deceiver's spellbook blocks ALL temporary spells from items (intentional to prevent broken Magic Fusion combinations)
+- Wanted certain "safe" items (Red Salamandra Ring fire spells) to work
+- Magic Fusion UI uses async reactive properties that couldn't be forced to refresh synchronously
+
+**The Solution - Two-Layer Defense System**:
+
+1. **Layer 1: Item Whitelist** (`MagicDeceiverRedSalamandraFix.cs`)
+   - Patches `UnitPartTemporarySpellsKnown.RefreshKnownSpells()`
+   - Manually grants spells from whitelisted items (currently: Red Salamandra Ring)
+   - Easily extensible: Add more safe items via GUID checks
+   - Spells are fully functional and castable
+
+2. **Layer 2: Magic Fusion Filter** (`MagicHackTemporarySpellFilter.cs`)
+   - Prevents temporary spells from appearing in Magic Fusion UI (defense against untested combinations)
+   - **UI refresh technique**: Toggles `m_CurrentLevel` reactive property to trigger immediate synchronous UI update
+   - Bypasses Unity's async `ObserveLastValueOnLateUpdate` pattern that blocked all previous refresh attempts
+   - Auto-resets when spellbook closes for consistent state management
+
+**Result**: Red Salamandra Ring spells in Magic Deceiver spell books now:
+- ✅ Grant immediately when equipped
+- ✅ Are castable in combat
+- ✅ Appear in normal spellbook view
+- ✅ Disappear instantly when Magic Fusion UI opens (defense-in-depth)
+- ✅ Reappear instantly when Magic Fusion UI closes
+
+**Impact**: Opens the door for carefully balanced item compatibility with Magic Deceiver while maintaining the archetype's unique Magic Fusion mechanics.
+
+**Whitelist System**:
+
+Currently whitelisted items:
+- ✅ **Red Salamandra Ring** - Fire spells (Fireball, Controlled Fireball, Firesnake, Hellfire Ray, Fire Storm, Fiery Body)
+
+**Why whitelist instead of allowing all items?**
+Magic Fusion is untested with most temporary spell sources. Each item needs individual balance review to ensure combinations don't trivialize content. The whitelist approach:
+- Provides careful balance control
+- Allows progressive expansion
+- Makes it clear which items are "intended"
+- Protects against unknown power creep
+
+**Community Requests Welcome!**
+Modders can easily modify the whitelist themselves - see comments in `MagicDeceiverRedSalamandraFix.cs` for instructions.
 
 ---

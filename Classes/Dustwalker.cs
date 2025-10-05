@@ -11,7 +11,11 @@ using Kingmaker.UnitLogic.Alignments;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators;
-using System;
+using BlueprintCore.Actions.Builder;
+using BlueprintCore.Actions.Builder.ContextEx;
+using BlueprintCore.Conditions.Builder;
+using BlueprintCore.Conditions.Builder.ContextEx;
+using Kingmaker.Utility;
 
 namespace AviaryClasses.Classes {
     public class Dustwalker {
@@ -39,6 +43,7 @@ namespace AviaryClasses.Classes {
                 DustwalkerAbyssExpertise.Configure();
                 DustwalkerEnhancedFlurry.Configure();
                 DustwalkerCamouflage.Configure();
+                DustwalkerPackLeader.Configure();
 
                 // Create the archetype
                 ArchetypeConfigurator archetype = ArchetypeConfigurator.New(featName, featGuid, CharacterClassRefs.MonkClass)
@@ -101,6 +106,7 @@ namespace AviaryClasses.Classes {
             archetype.AddToAddFeatures(2, FeatureSelectionRefs.SoheiMountedCombatFeatSelection.ToString());
             archetype.AddToRemoveFeatures(2, FeatureSelectionRefs.MonkBonusFeatSelectionLevel1.ToString());
             archetype.AddToAddFeatures(2, DustwalkerDesertTerrain.featGuid);
+            archetype.AddToRemoveFeatures(2, FeatureRefs.Evasion.ToString());
 
             // Level 3 - Desert expertise
             archetype.AddToAddFeatures(3, DustwalkerDesertExpertise.featGuid);
@@ -135,8 +141,10 @@ namespace AviaryClasses.Classes {
             archetype.AddToAddFeatures(8, FeatureSelectionRefs.FighterFeatSelection.ToString());
             archetype.AddToRemoveFeatures(8, FeatureSelectionRefs.MonkKiPowerSelection.ToString());
 
-            // Level 9 - Remove Improved Evasion
+            // Level 9 - Add Pack Leader aura
             archetype.AddToRemoveFeatures(9, FeatureSelectionRefs.MonkStyleStrike.ToString());
+            archetype.AddToRemoveFeatures(9, FeatureRefs.ImprovedEvasion.ToString());
+            archetype.AddToAddFeatures(9, DustwalkerPackLeader.featGuid);
 
             // Level 10 - Mounted combat (no lawful ki strike)
             archetype.AddToAddFeatures(10, FeatureSelectionRefs.SoheiMountedCombatFeatSelection10.ToString());
@@ -409,6 +417,61 @@ namespace AviaryClasses.Classes {
                     .SetDescription("DustwalkerCamouflage.Description")
                     .SetDisplayName("DustwalkerCamouflage.Name")
                     .Configure();
+            } catch (Exception ex) { Logger.Error(ex.ToString()); }
+        }
+    }
+
+    public class DustwalkerPackLeader {
+        private static readonly LogWrapper Logger = LogWrapper.Get("DustwalkerPackLeader");
+        public static readonly string featName = "DustwalkerPackLeader";
+        public static readonly string featGuid = "d7a3b8f5-2c1e-4b9a-a8f3-1e5d4c7b9b8f";
+        public static readonly string auraBuffName = "DustwalkerPackLeaderAuraBuff";
+        public static readonly string auraBuffGuid = "d7a3b8f5-2c1e-4b9a-a8f3-1e5d4c7b9b9f";
+        public static readonly string areaEffectName = "DustwalkerPackLeaderArea";
+        public static readonly string areaEffectGuid = "d7a3b8f5-2c1e-4b9a-a8f3-1e5d4c7b9c0f";
+        public static readonly string speedBuffName = "DustwalkerPackLeaderSpeedBuff";
+        public static readonly string speedBuffGuid = "d7a3b8f5-2c1e-4b9a-a8f3-1e5d4c7b9c1f";
+
+        public static void Configure() {
+            try {
+                // Create the buff that provides the speed bonus to animal companions
+                var speedBuff = BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs.BuffConfigurator.New(speedBuffName, speedBuffGuid)
+                    .SetDisplayName("DustwalkerPackLeader.BuffName")
+                    .SetDescription("DustwalkerPackLeader.BuffDescription")
+                    .SetFlags(Kingmaker.UnitLogic.Buffs.Blueprints.BlueprintBuff.Flags.HiddenInUi)
+                    .AddBuffMovementSpeed(value: 10)
+                    .Configure();
+
+                // Create the area effect that applies the buff to animal companions within 30 feet
+                var areaEffect = BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities.AbilityAreaEffectConfigurator.New(areaEffectName, areaEffectGuid)
+                    .SetSize(30.Feet())
+                    .SetShape(Kingmaker.UnitLogic.Abilities.Blueprints.AreaEffectShape.Cylinder)
+                    .AddAbilityAreaEffectRunAction(
+                        unitEnter: BlueprintCore.Actions.Builder.ActionsBuilder.New()
+                            .Conditional(
+                                conditions: BlueprintCore.Conditions.Builder.ConditionsBuilder.New()
+                                    .HasFact(FeatureRefs.AnimalType.ToString()),
+                                ifTrue: BlueprintCore.Actions.Builder.ActionsBuilder.New()
+                                    .ApplyBuffPermanent(speedBuffGuid, asChild: true)
+                            ),
+                        unitExit: BlueprintCore.Actions.Builder.ActionsBuilder.New()
+                            .RemoveBuff(speedBuffGuid)
+                    )
+                    .Configure();
+
+                // Create the buff that the feature adds to provide the aura
+                var auraBuff = BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs.BuffConfigurator.New(auraBuffName, auraBuffGuid)
+                    .SetFlags(Kingmaker.UnitLogic.Buffs.Blueprints.BlueprintBuff.Flags.HiddenInUi | Kingmaker.UnitLogic.Buffs.Blueprints.BlueprintBuff.Flags.StayOnDeath)
+                    .AddAreaEffect(areaEffectGuid)
+                    .Configure();
+
+                // Create the feature that provides the aura buff
+                FeatureConfigurator.New(featName, featGuid)
+                    .SetDisplayName("DustwalkerPackLeader.Name")
+                    .SetDescription("DustwalkerPackLeader.Description")
+                    .AddAuraFeatureComponent(buff: auraBuffGuid)
+                    .Configure();
+
             } catch (Exception ex) { Logger.Error(ex.ToString()); }
         }
     }

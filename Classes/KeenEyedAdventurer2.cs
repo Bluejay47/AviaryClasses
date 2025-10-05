@@ -71,5 +71,6 @@ namespace AviaryClasses.Classes {
             // Level 20 - Remove Cantrip Specialization (replaced by better features)
             archetype.RemoveFromAddFeatures(20, [CantripSpecialization.featGuid]);
         }
+        
     }
 }
