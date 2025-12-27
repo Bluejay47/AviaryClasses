@@ -1,9 +1,16 @@
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Utils;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
-using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.Blueprints.Facts;
+using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Enums.Damage;
+using Kingmaker.PubSubSystem;
+using Kingmaker.RuleSystem.Rules;
+using Kingmaker.RuleSystem.Rules.Damage;
+using Kingmaker.UnitLogic;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
 using System;
 
 namespace AviaryClasses.Classes.Features {
@@ -47,14 +54,22 @@ namespace AviaryClasses.Classes.Features {
         }
 
         private static void CreateIndividualElementFeatures() {
+            BlueprintAbilityReference[] cantripAbilities = new[] {
+                AbilityRefs.Ignition.Cast<BlueprintAbilityReference>().Reference,
+                AbilityRefs.RayOfFrost.Cast<BlueprintAbilityReference>().Reference,
+                AbilityRefs.Jolt.Cast<BlueprintAbilityReference>().Reference,
+                AbilityRefs.AcidSplash.Cast<BlueprintAbilityReference>().Reference
+            };
+
             // Fire element feature
             FeatureConfigurator.New("AscendantCantripsFire", fireElementGuid)
                 .SetDisplayName("Ascendant Fire Cantrips")
                 .SetDescription("Fire-based abilities ignore elemental resistance and immunity.")
                 .SetHideInUI(true)
                 .SetIsClassFeature(true)
-                .AddComponent<AscendantElement>(c => {
+                .AddComponent<AscendantCantripElement>(c => {
                     c.Element = DamageEnergyType.Fire;
+                    c.Abilities = cantripAbilities;
                 })
                 .Configure();
 
@@ -64,8 +79,9 @@ namespace AviaryClasses.Classes.Features {
                 .SetDescription("Cold-based abilities ignore elemental resistance and immunity.")
                 .SetHideInUI(true)
                 .SetIsClassFeature(true)
-                .AddComponent<AscendantElement>(c => {
+                .AddComponent<AscendantCantripElement>(c => {
                     c.Element = DamageEnergyType.Cold;
+                    c.Abilities = cantripAbilities;
                 })
                 .Configure();
 
@@ -75,8 +91,9 @@ namespace AviaryClasses.Classes.Features {
                 .SetDescription("Electricity-based abilities ignore elemental resistance and immunity.")
                 .SetHideInUI(true)
                 .SetIsClassFeature(true)
-                .AddComponent<AscendantElement>(c => {
+                .AddComponent<AscendantCantripElement>(c => {
                     c.Element = DamageEnergyType.Electricity;
+                    c.Abilities = cantripAbilities;
                 })
                 .Configure();
 
@@ -86,10 +103,47 @@ namespace AviaryClasses.Classes.Features {
                 .SetDescription("Acid-based abilities ignore elemental resistance and immunity.")
                 .SetHideInUI(true)
                 .SetIsClassFeature(true)
-                .AddComponent<AscendantElement>(c => {
+                .AddComponent<AscendantCantripElement>(c => {
                     c.Element = DamageEnergyType.Acid;
+                    c.Abilities = cantripAbilities;
                 })
                 .Configure();
+        }
+    }
+
+    [AllowedOn(typeof(BlueprintUnitFact), false)]
+    [TypeId("a6a8b662-5c40-4b6c-9a47-09fb12e0d36b")]
+    internal class AscendantCantripElement : UnitFactComponentDelegate, IInitiatorRulebookHandler<RuleCalculateDamage>, IRulebookHandler<RuleCalculateDamage>, ISubscriber, IInitiatorRulebookSubscriber {
+        public DamageEnergyType Element;
+        public BlueprintAbilityReference[] Abilities = Array.Empty<BlueprintAbilityReference>();
+
+        public void OnEventAboutToTrigger(RuleCalculateDamage evt) {
+            BlueprintAbility ability = evt.Reason.Ability?.Blueprint ?? evt.Reason.Context?.SourceAbility;
+            if (ability == null || Abilities == null || Abilities.Length == 0) {
+                return;
+            }
+
+            bool matches = false;
+            foreach (BlueprintAbilityReference abilityRef in Abilities) {
+                if (abilityRef != null && abilityRef.Get() == ability) {
+                    matches = true;
+                    break;
+                }
+            }
+            if (!matches) {
+                return;
+            }
+
+            foreach (BaseDamage damageBundle in evt.DamageBundle) {
+                if (damageBundle is not EnergyDamage energyDamage || energyDamage.EnergyType != Element) {
+                    continue;
+                }
+                damageBundle.AddDecline(new DamageDecline(DamageDeclineType.None, Fact) { AscendantElement = true });
+                energyDamage.IgnoreReduction = true;
+            }
+        }
+
+        public void OnEventDidTrigger(RuleCalculateDamage evt) {
         }
     }
 }

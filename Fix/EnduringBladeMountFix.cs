@@ -4,6 +4,7 @@ using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
+using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Parts;
 using System;
 
@@ -18,9 +19,9 @@ namespace AviaryClasses.Fix {
   ///    weapon (for Arcane Rider archetype) but ALSO clears the pool, wiping out the rider's
   ///    enchantments that were just applied milliseconds earlier.
   ///
-  /// The Fix: Intercept ClearEnchantPool when called from ContextActionShieldWeaponEnchantPool
-  /// and prevent it from clearing when the rider has Enduring Blade active and is mounted.
-  /// This preserves the rider's weapon enchantments.
+  /// The Fix: Scope a flag around ContextActionShieldWeaponEnchantPool.RunAction and block
+  /// ClearEnchantPool only in that context when Enduring Blade is active on a mounted rider.
+  /// This preserves the rider's weapon enchantments without stack-trace inspection.
   /// </summary>
   [HarmonyPatch]
   public class EnduringBladeMountFix {
@@ -28,7 +29,26 @@ namespace AviaryClasses.Fix {
 
     // Known blueprint GUIDs
     private const string EnduringBladeBuffGuid = "3c2fe8e0374d28d4185355121f4c4544";
- 
+
+    // Tracks ClearEnchantPool calls originating from ContextActionShieldWeaponEnchantPool.
+    [ThreadStatic]
+    private static bool InShieldWeaponEnchantPool;
+
+    [HarmonyPatch(typeof(ContextActionShieldWeaponEnchantPool), nameof(ContextActionShieldWeaponEnchantPool.RunAction))]
+    [HarmonyPrefix]
+    public static void ShieldWeaponEnchantPool_Prefix() {
+      InShieldWeaponEnchantPool = true;
+    }
+
+    [HarmonyPatch(typeof(ContextActionShieldWeaponEnchantPool), nameof(ContextActionShieldWeaponEnchantPool.RunAction))]
+    [HarmonyFinalizer]
+    public static void ShieldWeaponEnchantPool_Finalizer(Exception __exception) {
+      InShieldWeaponEnchantPool = false;
+      if (__exception != null) {
+        Logger.Error($"ContextActionShieldWeaponEnchantPool.RunAction failed: {__exception}");
+      }
+    }
+
     /// <summary>
     /// Prevent ContextActionShieldWeaponEnchantPool from clearing the rider's weapon enchantments
     /// when enchanting the mount's weapon. This is the core fix for the Enduring Blade + Mounted bug.
@@ -37,31 +57,18 @@ namespace AviaryClasses.Fix {
     [HarmonyPrefix]
     public static bool ClearEnchantPool_Prefix(UnitPartEnchantPoolData __instance, EnchantPoolType type) {
       try {
-        if (type != EnchantPoolType.ArcanePool) {
-          return true; // Allow clearing for other pool types
+        if (type != EnchantPoolType.ArcanePool || !InShieldWeaponEnchantPool) {
+          return true; // Allow clearing for other pool types or callers
         }
 
-        // Check if this is being called from ContextActionShieldWeaponEnchantPool
-        var stackTrace = new System.Diagnostics.StackTrace();
-        bool isFromShieldWeaponEnchant = false;
-        for (int i = 0; i < stackTrace.FrameCount; i++) {
-          var method = stackTrace.GetFrame(i).GetMethod();
-          if (method?.DeclaringType?.Name == "ContextActionShieldWeaponEnchantPool") {
-            isFromShieldWeaponEnchant = true;
-            break;
-          }
-        }
+        var unit = __instance.Owner;
+        var riderPart = unit?.Get<UnitPartRider>();
+        var enduringBladeBuff = BlueprintTool.Get<BlueprintBuff>(EnduringBladeBuffGuid);
 
-        if (isFromShieldWeaponEnchant) {
-          var unit = __instance.Owner;
-          var riderPart = unit?.Get<UnitPartRider>();
-          var enduringBladeBuff = BlueprintTool.Get<BlueprintBuff>(EnduringBladeBuffGuid);
-
-          // If mounted with Enduring Blade active, prevent clearing the rider's pool
-          if (riderPart != null && riderPart.SaddledUnit != null &&
-              enduringBladeBuff != null && unit.Descriptor.Buffs.HasFact(enduringBladeBuff)) {
-            return false; // Skip the clear to preserve rider weapon enchantments
-          }
+        // If mounted with Enduring Blade active, prevent clearing the rider's pool
+        if (riderPart != null && riderPart.SaddledUnit != null &&
+            enduringBladeBuff != null && unit.Descriptor.Buffs.HasFact(enduringBladeBuff)) {
+          return false; // Skip the clear to preserve rider weapon enchantments
         }
 
         return true; // Allow normal clearing

@@ -160,6 +160,16 @@
     "ProcessTemplates": false
   },
   {
+    "Key": "IMakeMyOwnLuck.Name",
+    "enGB": "I Make My Own Luck",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "IMakeMyOwnLuck.Description",
+    "enGB": "You take fate into your own hands, gaining the effects of Fortune for 1 minute per caster level.",
+    "ProcessTemplates": false
+  },
+  {
     "Key": "CantripSpecialization.Name",
     "enGB": "Cantrip Specialization",
     "ProcessTemplates": false
@@ -231,7 +241,7 @@
   },
   {
     "Key": "OverpoweredCantrips.Description",
-    "enGB": "Through extensive trial and error with cantrips, the keen-eyed adventurer learns to imbue additional power into their Jolt, Ignition, Ray of Frost and Acid Splash cantrips. When enabled, these cantrips deal 1 extra point of damage per dice rolled and have the ability to ricochet to other targets.\nBenefit: Deal 1 extra point of damage per damage dice rolled. 1 to 3 additional targets within 20 feet of the main target may take ricochet damage... depending on how the whims of fate favor you this day.",
+    "enGB": "Through extensive trial and error with cantrips, the keen-eyed adventurer learns to imbue additional power into their Jolt, Ignition, Ray of Frost and Acid Splash cantrips. When enabled, these cantrips deal 1 extra point of damage (maybe?) per dice rolled and have the ability to ricochet to other targets.\nBenefit: Deal 1 extra point of damage per damage dice rolled (depending...). 1 to 3 additional targets within 20 feet of the main target may take ricochet damage... depending on how the whims of fate favor you this day.",
     "ProcessTemplates": true
   },  
   {
@@ -243,6 +253,66 @@
     "Key": "OverpoweredVortex.Description",
     "enGB": "Tinkering with the casting patterns of your Elemental Vortex has led to some unexpected results. It might be a bit haphazard but there is no denying... it is more powerful. Elemental Vortex will randomly strike out at enemies near the area of effect with elemental bolts of energy for 10d3 damage each turn Elemental Vortex is active. All good adventurers know that inevitably they are at the whims of varying fate, and you may find that the number of affected enemies varies with your luck.",
     "ProcessTemplates": true
+  },
+  {
+    "Key": "KeenEyedAdventurerLuckFeature.Name",
+    "enGB": "Luck Tracker",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "KeenEyedAdventurerLuckFeature.Description",
+    "enGB": "Displays current luck level.",
+    "ProcessTemplates": true
+  },
+  {
+    "Key": "OverpoweredVortexLuck0.Name",
+    "enGB": "Unkind Fortune",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortexLuck0.Description",
+    "enGB": "Fortune views you grimly.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortexLuck1.Name",
+    "enGB": "Wavering Fortune",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortexLuck1.Description",
+    "enGB": "Fortune is not on your side.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortexLuck2.Name",
+    "enGB": "Steady Fortune",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortexLuck2.Description",
+    "enGB": "Fortune views you with apathy.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortexLuck3.Name",
+    "enGB": "Bright Fortune",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortexLuck3.Description",
+    "enGB": "Fortune smiles.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortexLuck4.Name",
+    "enGB": "Extreme Fortune",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "OverpoweredVortexLuck4.Description",
+    "enGB": "Fortune blazes with promise.",
+    "ProcessTemplates": false
   },
   {
     "Key": "KineticHealerBuff.Name",
@@ -602,6 +672,51 @@
   {
     "Key": "BeastTamerPackTactics.Description",
     "enGB": "You have learned to coordinate with your animal companions and summoned creatures as if they were trained warriors. Choose one {g|Encyclopedia:Teamwork}teamwork feat{/g}. You share the effects of this teamwork feat with your animal companion and all creatures you summon within 30 feet of you. This allows your companions to benefit from teamwork tactics even if they don't have the feat themselves.",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTacticsBackToBack.Name",
+    "enGB": "Pack Tactics: Back to Back",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTacticsCoordinatedDefense.Name",
+    "enGB": "Pack Tactics: Coordinated Defense",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTacticsCoordinatedManeuvers.Name",
+    "enGB": "Pack Tactics: Coordinated Maneuvers",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTacticsOutflank.Name",
+    "enGB": "Pack Tactics: Outflank",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTacticsPreciseStrike.Name",
+    "enGB": "Pack Tactics: Precise Strike",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTacticsSeizeTheMoment.Name",
+    "enGB": "Pack Tactics: Seize the Moment",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTacticsShakeItOff.Name",
+    "enGB": "Pack Tactics: Shake It Off",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTacticsShieldWall.Name",
+    "enGB": "Pack Tactics: Shield Wall",
+    "ProcessTemplates": false
+  },
+  {
+    "Key": "BeastTamerPackTacticsTandemTrip.Name",
+    "enGB": "Pack Tactics: Tandem Trip",
     "ProcessTemplates": false
   }
 ]

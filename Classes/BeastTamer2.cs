@@ -14,8 +14,20 @@ using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.Configurators.UnitLogic.ActivatableAbilities;
 using BlueprintCore.Blueprints.CustomConfigurators;
 using BlueprintCore.Actions.Builder;
+using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Conditions.Builder;
 using BlueprintCore.Conditions.Builder.ContextEx;
+using BlueprintCore.Utils.Types;
+using Kingmaker.Enums;
+using Kingmaker.RuleSystem;
+using Kingmaker.UnitLogic.Abilities;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.UnitLogic.ActivatableAbilities;
+using Kingmaker.UnitLogic.Buffs.Blueprints;
+using Kingmaker.UnitLogic.Commands.Base;
+using Kingmaker.UnitLogic.FactLogic;
+using Kingmaker.UnitLogic.Mechanics;
+using Kingmaker.Utility;
 
 namespace AviaryClasses.Classes {
     public class BeastTamer2 {
@@ -104,14 +116,6 @@ namespace AviaryClasses.Classes {
 
 
         private static void ConfigureArchetypeProgression(ArchetypeConfigurator archetype) {
-            // Level 1: Add Beast Master's Bond (allows selecting nature-themed talents)
-            archetype.AddToAddFeatures(1, beastMasterBondGuid);
-
-            // Add Release The Bees spell to the spellbook at level 1
-            archetype.AddToAddFeatures(1, Features.ReleaseTheBees.CreateReleaseTheBeesFeature());
-
-            // Add animal companion starting at level 4
-            archetype.AddToAddFeatures(4, FeatureSelectionRefs.AnimalCompanionSelectionDruid.ToString());
 
             // Level 5-20: Animal Companion Ranks
             for (int level = 5; level <= 20; level++) {
@@ -120,7 +124,17 @@ namespace AviaryClasses.Classes {
 
             // Remove the party-wide buff features and replace with pet-only versions
             archetype
-                //level 8
+
+                // Level 1: Add Beast Master's Bond (allows selecting nature-themed talents)
+                .AddToAddFeatures(1, beastMasterBondGuid)
+
+                // Add Release The Bees spell to the spellbook at level 1
+                .AddToAddFeatures(1, Features.ReleaseTheBees.CreateReleaseTheBeesFeature())
+
+                // Add animal companion starting at level 4
+                .AddToAddFeatures(4, FeatureSelectionRefs.AnimalCompanionSelectionDruid.ToString())
+
+                // level 8
                 .AddToAddFeatures(8, bonusTalentSelectionGuid)
 
                 // Level 9: Replace Inspire Greatness with pet-only version
@@ -133,107 +147,292 @@ namespace AviaryClasses.Classes {
                 .AddToRemoveFeatures(12, FeatureRefs.SoothingPerformanceFeature.ToString())
                 .AddToAddFeatures(12, petSoothingPerformanceFeatureGuid)
                 .AddToAddFeatures(12, Features.PackTactics.featureGuid)
+                .AddToAddFeatures(12, Features.PackTactics.selectionGuid)
 
                 // Level 15: Replace Inspire Heroics with pet-only version
                 .AddToRemoveFeatures(15, FeatureRefs.InspireHeroicsFeature.ToString())
                 .AddToAddFeatures(15, petInspireHeroicsGuid)
 
-                //level 16
+                // level 16
                 .AddToAddFeatures(16, bonusTalentSelectionGuid);
         }
 
 
         private static void ConfigurePetOnlyInspireGreatness() {
-            // Create area effect that only affects pets/animal companions and summoned creatures
+            var originalToggle = BlueprintTool.Get<BlueprintActivatableAbility>(ActivatableAbilityRefs.InspireGreatnessToggleAbility.ToString());
+            var originalBuff = BlueprintTool.Get<Kingmaker.UnitLogic.Buffs.Blueprints.BlueprintBuff>(BuffRefs.InspireGreatnessBuff.ToString());
+            var originalArea = BlueprintTool.Get<BlueprintAbilityAreaEffect>(AbilityAreaEffectRefs.InspireGreatnessArea.ToString());
+
+            var petOnlyTypeCondition = ConditionsBuilder.New()
+                .UseOr()
+                .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAnimalCompanion>()
+                .HasFact(BuffRefs.SummonedUnitBuff.ToString());
+
+            var petOnlyCondition = ConditionsBuilder.New()
+                .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAlly>()
+                .AddOrAndLogic(petOnlyTypeCondition);
+
+            var petOnlyDiscordantCondition = ConditionsBuilder.New()
+                .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAlly>()
+                .AddOrAndLogic(petOnlyTypeCondition)
+                .CasterHasFact(FeatureRefs.DiscordantVoice.ToString());
+
             var areaEffect = AbilityAreaEffectConfigurator.New(petInspireGreatnessAreaName, petInspireGreatnessAreaGuid)
-                .CopyFrom(AbilityAreaEffectRefs.InspireGreatnessArea, c => true)
-                .OnConfigure(bp => {
-                    // Find all AbilityAreaEffectBuff components and modify their conditions
-                    var buffComps = bp.ComponentsArray.OfType<Kingmaker.UnitLogic.Abilities.Components.AreaEffects.AbilityAreaEffectBuff>();
-                    foreach (var comp in buffComps) {
-                        // Replace condition to only affect animal companions (pets) or summoned creatures
-                        comp.Condition = ConditionsBuilder.New()
-                            .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAlly>()
-                            .AddOrAndLogic(
-                                ConditionsBuilder.New()
-                                    .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAnimalCompanion>()
-                            )
-                            .Build();
-                    }
-                })
+                .SetTargetType(BlueprintAbilityAreaEffect.TargetType.Any)
+                .SetSpellResistance(false)
+                .SetAffectEnemies(false)
+                .SetAggroEnemies(true)
+                .SetAffectDead(false)
+                .SetIgnoreSleepingUnits(false)
+                .SetShape(AreaEffectShape.Cylinder)
+                .SetSize(30.Feet())
+                .SetFx(originalArea.Fx)
+                .AddAbilityAreaEffectBuff(
+                    buff: BuffRefs.InspireGreatnessEffectBuff.ToString(),
+                    checkConditionEveryRound: false,
+                    condition: petOnlyCondition)
+                .AddAbilityAreaEffectBuff(
+                    buff: BuffRefs.DiscordantVoiceBuff.ToString(),
+                    checkConditionEveryRound: false,
+                    condition: petOnlyDiscordantCondition)
                 .Configure();
 
-            // Create buff that uses the pet-only area effect
+            var bonusDice = new ContextDiceValue() {
+                DiceType = DiceType.D10,
+                DiceCountValue = ContextValues.Constant(2),
+                BonusValue = ContextValues.Constant(0)
+            };
+
             var buff = BuffConfigurator.New(petInspireGreatnessBuffName, petInspireGreatnessBuffGuid)
-                .CopyFrom(BuffRefs.InspireGreatnessBuff, c => true)
-                .OnConfigure(bp => {
-                    // Find AddAreaEffect component and update it
-                    var areaComp = bp.ComponentsArray.OfType<Kingmaker.UnitLogic.Buffs.Components.AddAreaEffect>().FirstOrDefault();
-                    if (areaComp != null) {
-                        areaComp.m_AreaEffect = areaEffect.ToReference<BlueprintAbilityAreaEffectReference>();
-                    }
-                })
-                .Configure();
-
-            // Create toggle ability
-            var toggle = ActivatableAbilityConfigurator.New(petInspireGreatnessToggleName, petInspireGreatnessToggleGuid)
-                .CopyFrom(ActivatableAbilityRefs.InspireGreatnessToggleAbility, c => true)
-                .SetBuff(buff)
-                .Configure();
-
-            // Create feature
-            FeatureConfigurator.New(petInspireGreatnessName, petInspireGreatnessGuid)
-                .CopyFrom(FeatureRefs.InspireGreatnessFeature, c => true)
                 .SetDisplayName(petInspireGreatnessName + ".Name")
                 .SetDescription(petInspireGreatnessName + ".Description")
+                .SetIcon(originalBuff.m_Icon)
+                .SetFlags(BlueprintBuff.Flags.HiddenInUi | BlueprintBuff.Flags.StayOnDeath)
+                .SetStacking(StackingType.Replace)
+                .SetFrequency(DurationRate.Rounds)
+                .SetFxOnStart(originalBuff.FxOnStart)
+                .AddAreaEffect(areaEffect)
+                .AddContextCalculateSharedValue(
+                    valueType: AbilitySharedValue.StatBonus,
+                    value: bonusDice,
+                    modifier: 1.0)
+                .AddAbilityUseTrigger(
+                    action: ActionsBuilder.New()
+                        .Conditional(
+                            conditions: ConditionsBuilder.New()
+                                .CasterHasFact(FeatureRefs.HarmonicSpell.ToString()),
+                            ifTrue: ActionsBuilder.New()
+                                .RestoreResource(AbilityResourceRefs.BardicPerformanceResource.ToString())),
+                    actionsOnAllTargets: false,
+                    actionsOnTarget: false,
+                    afterCast: false,
+                    checkAbilityType: true,
+                    type: AbilityType.Spell,
+                    checkAoE: false,
+                    checkDescriptor: false,
+                    checkRange: false,
+                    checkSpellSchool: false,
+                    checkSourceItemType: false,
+                    fromSpellbook: false,
+                    minSpellLevel: true,
+                    minSpellLevelLimit: 1,
+                    exactSpellLevel: false,
+                    exactSpellLevelLimit: 0,
+                    useCastRule: true,
+                    onlyOnce: true,
+                    oncePerContext: true,
+                    range: AbilityRange.Touch,
+                    isAoE: false)
+                .Configure();
+
+            var toggle = ActivatableAbilityConfigurator.New(petInspireGreatnessToggleName, petInspireGreatnessToggleGuid)
+                .SetDisplayName(petInspireGreatnessName + ".Name")
+                .SetDescription(petInspireGreatnessName + ".Description")
+                .SetIcon(originalToggle.m_Icon)
+                .SetBuff(buff)
+                .SetGroup(ActivatableAbilityGroup.BardicPerformance)
+                .SetWeightInGroup(1)
+                .SetIsOnByDefault(false)
+                .SetDeactivateIfCombatEnded(false)
+                .SetDeactivateAfterFirstRound(false)
+                .SetDeactivateImmediately(false)
+                .SetIsTargeted(false)
+                .SetDeactivateIfOwnerDisabled(true)
+                .SetDeactivateIfOwnerUnconscious(false)
+                .SetOnlyInCombat(false)
+                .SetDoNotTurnOffOnRest(false)
+                .SetActionBarAutoFillIgnored(false)
+                .SetIsRuntimeOnly(false)
+                .SetHiddenInUI(false)
+                .SetActivationType(AbilityActivationType.WithUnitCommand)
+                .SetActivateWithUnitCommand(UnitCommand.CommandType.Standard)
+                .SetActivateOnUnitAction(AbilityActivateOnUnitActionType.Attack)
+                .AddActivatableAbilityResourceLogic(
+                    requiredResource: AbilityResourceRefs.BardicPerformanceResource.ToString(),
+                    spendType: ActivatableAbilityResourceLogic.ResourceSpendType.NewRound)
+                .AddTriggerOnActivationChanged(
+                    actionList: ActionsBuilder.New()
+                        .Conditional(
+                            conditions: ConditionsBuilder.New()
+                                .CasterHasFact(BuffRefs.DivaStyleBuff.ToString()),
+                            ifTrue: ActionsBuilder.New()
+                                .ApplyBuff(
+                                    BuffRefs.DivaStyleFreeFaintBuff.ToString(),
+                                    durationValue: ContextDuration.Fixed(1, DurationRate.Rounds),
+                                    asChild: true,
+                                    toCaster: true)),
+                    stage: AddTriggerOnActivationChanged.Stage.OnSwitchOn)
+                .SetResourceAssetIds(
+                    "c87c798cd0a410c419ee4bafd4adb68f",
+                    "3a0228650295f6a40bc335385a929a07")
+                .Configure();
+
+            FeatureConfigurator.New(petInspireGreatnessName, petInspireGreatnessGuid)
+                .SetDisplayName(petInspireGreatnessName + ".Name")
+                .SetDescription(petInspireGreatnessName + ".Description")
+                .SetIcon(originalToggle.m_Icon)
+                .SetIsClassFeature(true)
+                .SetRanks(5)
                 .AddFacts(new() { toggle })
                 .Configure();
         }
 
 
         private static void ConfigurePetOnlyInspireHeroics() {
-            // Create area effect that only affects pets/animal companions and summoned creatures
+            var originalToggle = BlueprintTool.Get<BlueprintActivatableAbility>(ActivatableAbilityRefs.InspireHeroicsToggleAbility.ToString());
+            var originalBuff = BlueprintTool.Get<Kingmaker.UnitLogic.Buffs.Blueprints.BlueprintBuff>(BuffRefs.InspireHeroicsBuff.ToString());
+            var originalArea = BlueprintTool.Get<BlueprintAbilityAreaEffect>(AbilityAreaEffectRefs.InspireHeroicsArea.ToString());
+
+            var petOnlyTypeCondition = ConditionsBuilder.New()
+                .UseOr()
+                .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAnimalCompanion>()
+                .HasFact(BuffRefs.SummonedUnitBuff.ToString());
+
+            var petOnlyCondition = ConditionsBuilder.New()
+                .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAlly>()
+                .AddOrAndLogic(petOnlyTypeCondition);
+
+            var petOnlyDiscordantCondition = ConditionsBuilder.New()
+                .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAlly>()
+                .AddOrAndLogic(petOnlyTypeCondition)
+                .CasterHasFact(FeatureRefs.DiscordantVoice.ToString());
+
             var areaEffect = AbilityAreaEffectConfigurator.New(petInspireHeroicsAreaName, petInspireHeroicsAreaGuid)
-                .CopyFrom(AbilityAreaEffectRefs.InspireHeroicsArea, c => true)
-                .OnConfigure(bp => {
-                    // Find all AbilityAreaEffectBuff components and modify their conditions
-                    var buffComps = bp.ComponentsArray.OfType<Kingmaker.UnitLogic.Abilities.Components.AreaEffects.AbilityAreaEffectBuff>();
-                    foreach (var comp in buffComps) {
-                        // Replace condition to only affect animal companions (pets) or summoned creatures
-                        comp.Condition = ConditionsBuilder.New()
-                            .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAlly>()
-                            .AddOrAndLogic(
-                                ConditionsBuilder.New()
-                                    .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAnimalCompanion>()
-                            )
-                            .Build();
-                    }
-                })
+                .SetTargetType(BlueprintAbilityAreaEffect.TargetType.Any)
+                .SetSpellResistance(false)
+                .SetAffectEnemies(false)
+                .SetAggroEnemies(true)
+                .SetAffectDead(false)
+                .SetIgnoreSleepingUnits(false)
+                .SetShape(AreaEffectShape.Cylinder)
+                .SetSize(30.Feet())
+                .SetFx(originalArea.Fx)
+                .AddAbilityAreaEffectRunAction(
+                    unitEnter: ActionsBuilder.New()
+                        .Conditional(
+                            conditions: petOnlyCondition,
+                            ifTrue: ActionsBuilder.New()
+                                .ApplyBuffPermanent(BuffRefs.InspireHeroicsEffectBuff.ToString(), asChild: true))
+                        .Conditional(
+                            conditions: petOnlyDiscordantCondition,
+                            ifTrue: ActionsBuilder.New()
+                                .ApplyBuffPermanent(BuffRefs.DiscordantVoiceBuff.ToString(), asChild: true)),
+                    unitExit: ActionsBuilder.New()
+                        .Conditional(
+                            conditions: petOnlyCondition,
+                            ifTrue: ActionsBuilder.New()
+                                .RemoveBuff(BuffRefs.DLC3_InspireHeroicsEffectBuff.ToString(), onlyFromCaster: true)
+                                .RemoveBuff(BuffRefs.InspireHeroicsEffectBuff.ToString(), onlyFromCaster: true)
+                                .RemoveBuff(BuffRefs.DiscordantVoiceBuff.ToString(), onlyFromCaster: true)))
                 .Configure();
 
-            // Create buff that uses the pet-only area effect
             var buff = BuffConfigurator.New(petInspireHeroicsBuffName, petInspireHeroicsBuffGuid)
-                .CopyFrom(BuffRefs.InspireHeroicsBuff, c => true)
-                .OnConfigure(bp => {
-                    // Find AddAreaEffect component and update it
-                    var areaComp = bp.ComponentsArray.OfType<Kingmaker.UnitLogic.Buffs.Components.AddAreaEffect>().FirstOrDefault();
-                    if (areaComp != null) {
-                        areaComp.m_AreaEffect = areaEffect.ToReference<BlueprintAbilityAreaEffectReference>();
-                    }
-                })
-                .Configure();
-
-            // Create toggle ability
-            var toggle = ActivatableAbilityConfigurator.New(petInspireHeroicsToggleName, petInspireHeroicsToggleGuid)
-                .CopyFrom(ActivatableAbilityRefs.InspireHeroicsToggleAbility, c => true)
-                .SetBuff(buff)
-                .Configure();
-
-            // Create feature
-            FeatureConfigurator.New(petInspireHeroicsName, petInspireHeroicsGuid)
-                .CopyFrom(FeatureRefs.InspireHeroicsFeature, c => true)
                 .SetDisplayName(petInspireHeroicsName + ".Name")
                 .SetDescription(petInspireHeroicsName + ".Description")
+                .SetIcon(originalBuff.m_Icon)
+                .SetFlags(BlueprintBuff.Flags.HiddenInUi | BlueprintBuff.Flags.StayOnDeath)
+                .SetStacking(StackingType.Replace)
+                .SetFrequency(DurationRate.Rounds)
+                .SetFxOnStart(originalBuff.FxOnStart)
+                .AddAreaEffect(areaEffect)
+                .AddAbilityUseTrigger(
+                    action: ActionsBuilder.New()
+                        .Conditional(
+                            conditions: ConditionsBuilder.New()
+                                .CasterHasFact(FeatureRefs.HarmonicSpell.ToString()),
+                            ifTrue: ActionsBuilder.New()
+                                .RestoreResource(AbilityResourceRefs.BardicPerformanceResource.ToString())),
+                    actionsOnAllTargets: false,
+                    actionsOnTarget: false,
+                    afterCast: false,
+                    checkAbilityType: true,
+                    type: AbilityType.Spell,
+                    checkAoE: false,
+                    checkDescriptor: false,
+                    checkRange: false,
+                    checkSpellSchool: false,
+                    checkSourceItemType: false,
+                    fromSpellbook: false,
+                    minSpellLevel: true,
+                    minSpellLevelLimit: 1,
+                    exactSpellLevel: false,
+                    exactSpellLevelLimit: 0,
+                    useCastRule: true,
+                    onlyOnce: true,
+                    oncePerContext: true,
+                    range: AbilityRange.Touch,
+                    isAoE: false)
+                .Configure();
+
+            var toggle = ActivatableAbilityConfigurator.New(petInspireHeroicsToggleName, petInspireHeroicsToggleGuid)
+                .SetDisplayName(petInspireHeroicsName + ".Name")
+                .SetDescription(petInspireHeroicsName + ".Description")
+                .SetIcon(originalToggle.m_Icon)
+                .SetBuff(buff)
+                .SetGroup(ActivatableAbilityGroup.BardicPerformance)
+                .SetWeightInGroup(1)
+                .SetIsOnByDefault(false)
+                .SetDeactivateIfCombatEnded(false)
+                .SetDeactivateAfterFirstRound(false)
+                .SetDeactivateImmediately(false)
+                .SetIsTargeted(false)
+                .SetDeactivateIfOwnerDisabled(true)
+                .SetDeactivateIfOwnerUnconscious(false)
+                .SetOnlyInCombat(false)
+                .SetDoNotTurnOffOnRest(false)
+                .SetActionBarAutoFillIgnored(false)
+                .SetIsRuntimeOnly(false)
+                .SetHiddenInUI(false)
+                .SetActivationType(AbilityActivationType.WithUnitCommand)
+                .SetActivateWithUnitCommand(UnitCommand.CommandType.Standard)
+                .SetActivateOnUnitAction(AbilityActivateOnUnitActionType.Attack)
+                .AddActivatableAbilityResourceLogic(
+                    requiredResource: AbilityResourceRefs.BardicPerformanceResource.ToString(),
+                    spendType: ActivatableAbilityResourceLogic.ResourceSpendType.NewRound)
+                .AddTriggerOnActivationChanged(
+                    actionList: ActionsBuilder.New()
+                        .Conditional(
+                            conditions: ConditionsBuilder.New()
+                                .CasterHasFact(BuffRefs.DivaStyleBuff.ToString()),
+                            ifTrue: ActionsBuilder.New()
+                                .ApplyBuff(
+                                    BuffRefs.DivaStyleFreeFaintBuff.ToString(),
+                                    durationValue: ContextDuration.Fixed(1, DurationRate.Rounds),
+                                    asChild: true,
+                                    toCaster: true)),
+                    stage: AddTriggerOnActivationChanged.Stage.OnSwitchOn)
+                .SetResourceAssetIds(
+                    "c87c798cd0a410c419ee4bafd4adb68f",
+                    "79665f3d500fdf44083feccf4cbfc00a",
+                    "c7e1609eb3da9f446bc4a69622c486dc")
+                .Configure();
+
+            FeatureConfigurator.New(petInspireHeroicsName, petInspireHeroicsGuid)
+                .SetDisplayName(petInspireHeroicsName + ".Name")
+                .SetDescription(petInspireHeroicsName + ".Description")
+                .SetIcon(originalToggle.m_Icon)
+                .SetIsClassFeature(true)
+                .SetRanks(5)
                 .AddFacts(new() { toggle })
                 .Configure();
         }
@@ -305,6 +504,7 @@ namespace AviaryClasses.Classes {
             featureSelection.AddToAllFeatures(FeatureRefs.OracleRevelationNatureWhispers.ToString()); // Nature Whispers
             featureSelection.AddToAllFeatures(FeatureRefs.OracleRevelationSpiritOfNature.ToString()); // Spirit of Nature
             featureSelection.AddToAllFeatures(FeatureRefs.OracleRevelationErosionTouch.ToString()); // Spirit of Nature
+            featureSelection.AddToAllFeatures(FeatureRefs.CompanionBoon.ToString()); // Boon Companion
 
             featureSelection.Configure();
         }

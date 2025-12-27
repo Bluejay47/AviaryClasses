@@ -7,6 +7,14 @@ references/*
 .claude/
 indexer/chroma_db/
 indexer/chroma_db/*
+*.zip
+tmp
+tmp/*
+GamePath.props
+obj
+obj/*
+bin
+bin/*
 
 # User-specific files
 *.suo

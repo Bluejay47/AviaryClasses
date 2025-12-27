@@ -19,6 +19,7 @@ namespace AviaryClasses {
         internal static Harmony HarmonyInstance;
         internal static UnityModManager.ModEntry ModEntry;
         public static bool enabled;
+        private static bool patchesApplied;
 
 
         public static bool Load(UnityModManager.ModEntry modEntry) {
@@ -31,7 +32,11 @@ namespace AviaryClasses {
                 modEntry.OnGUI = OnGUI;
                 modEntry.OnToggle = OnToggle;
                 HarmonyInstance = new Harmony(modEntry.Info.Id);
-                HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+                enabled = modEntry.Enabled;
+                if (enabled) {
+                    HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+                    patchesApplied = true;
+                }
 
             } catch (Exception ex) {
                 Logger.Error(ex.ToString());
@@ -45,7 +50,22 @@ namespace AviaryClasses {
         }
 
         public static bool OnToggle(UnityModManager.ModEntry modEntry, bool value) {
+            if (enabled == value) {
+                return true;
+            }
             enabled = value;
+
+            try {
+                if (enabled && !patchesApplied) {
+                    HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+                    patchesApplied = true;
+                } else if (!enabled && patchesApplied) {
+                    HarmonyInstance.UnpatchAll(modEntry.Info.Id);
+                    patchesApplied = false;
+                }
+            } catch (Exception ex) {
+                Logger.Error("Failed to toggle patches.", ex);
+            }
             return true;
         }
 
@@ -57,6 +77,9 @@ namespace AviaryClasses {
             [HarmonyPatch(nameof(BlueprintsCache.Init)), HarmonyPostfix]
             static void Postfix() {
                 try {
+                    if (!Main.enabled) {
+                        return;
+                    }
                     if (Initialized) {
                         return;
                     }
@@ -73,7 +96,6 @@ namespace AviaryClasses {
                     MonkArchetypeAlignmentFix.Configure();
                     CharlatansNecklaceFix.Configure();
                     TriceratopsStatuetteItemAlt.Configure();
-                    VendorPatch.Configure();
 
                 } catch (Exception ex) {
                     Logger.Error("Failed to initialize.", ex);

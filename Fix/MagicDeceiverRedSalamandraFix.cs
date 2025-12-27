@@ -71,9 +71,9 @@ namespace AviaryClasses.Fix {
         private static readonly string[] WhitelistedFeatureGuids = new string[] {
             "07d734e0740ee084593d3b9ce2e03c86", // Red Salamandra (Fire)
             // Add additional GUIDs here as needed
-            // "f96cfd9ef0997d94b8801180ab9b4698", // Earth Unleashed (Earth)
-            // "fcef74b5753dc9249b0b1879629fd73c", // Boreal Might (Cold)
-            // "f5f62828b6ebaa14c94d9ff32b3692d0", // Dark Omen (Necromancy)
+            "f96cfd9ef0997d94b8801180ab9b4698", // Earth Unleashed (Earth)
+            "fcef74b5753dc9249b0b1879629fd73c", // Boreal Might (Cold)
+            "f5f62828b6ebaa14c94d9ff32b3692d0", // Dark Omen (Necromancy)
         };
 
         /// <summary>

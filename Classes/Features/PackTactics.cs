@@ -9,6 +9,7 @@ using BlueprintCore.Blueprints.References;
 using BlueprintCore.Conditions.Builder;
 using BlueprintCore.Conditions.Builder.ContextEx;
 using BlueprintCore.Utils;
+using PackTacticsSharedFeats = AviaryClasses.Classes.Features.PackTacticsShared.PackTacticsSharedFeats;
 using Kingmaker.Enums;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
@@ -20,16 +21,18 @@ namespace AviaryClasses.Classes.Features {
         private static readonly string featureName = "BeastTamerPackTactics";
         public static readonly string featureGuid = "b7a8c395-d948-5124-bb2c-0e4aa6ac300e";
         private static readonly string selectionName = "BeastTamerPackTacticsSelection";
-        private static readonly string selectionGuid = "b7a8c395-d948-5124-bb2c-0e4aa6ac300f";
+        public static readonly string selectionGuid = "b7a8c395-d948-5124-bb2c-0e4aa6ac300f";
         private static readonly string areaName = "BeastTamerPackTacticsArea";
-        private static readonly string areaGuid = "b7a8c395-d948-5124-bb2c-0e4aa6ac3010";
+        private static readonly string areaGuid = "e814144e-b73c-4d65-9275-82f082d4deca";
         private static readonly string auraBuffName = "BeastTamerPackTacticsAuraBuff";
-        private static readonly string auraBuffGuid = "b7a8c395-d948-5124-bb2c-0e4aa6ac3011";
+        private static readonly string auraBuffGuid = "0e402175-b3e9-4d90-980e-07034f175271";
         private static readonly string effectBuffName = "BeastTamerPackTacticsEffectBuff";
-        private static readonly string effectBuffGuid = "b7a8c395-d948-5124-bb2c-0e4aa6ac3012";
+        private static readonly string effectBuffGuid = "27eac6f4-eb93-4060-b43f-75a2bb31566f";
 
         public static void Configure() {
             try {
+                PackTacticsSharedFeats.Configure();
+
                 // Create the teamwork feat selection
                 var selection = FeatureSelectionConfigurator.New(selectionName, selectionGuid)
                     .SetDisplayName("BeastTamerPackTactics.Name")
@@ -38,8 +41,19 @@ namespace AviaryClasses.Classes.Features {
                     .SetIsClassFeature(true)
                     .SetGroup(FeatureGroup.TeamworkFeat)
                     .SetIgnorePrerequisites(true)
-                    .SetRanks(1)
-                    .Configure();
+                    .SetRanks(1);
+
+                selection.ClearAllFeatures();
+                selection.AddToAllFeatures(PackTacticsSharedFeats.BackToBackGuid);
+                selection.AddToAllFeatures(PackTacticsSharedFeats.CoordinatedDefenseGuid);
+                selection.AddToAllFeatures(PackTacticsSharedFeats.CoordinatedManeuversGuid);
+                selection.AddToAllFeatures(PackTacticsSharedFeats.OutflankGuid);
+                selection.AddToAllFeatures(PackTacticsSharedFeats.PreciseStrikeGuid);
+                selection.AddToAllFeatures(PackTacticsSharedFeats.SeizeTheMomentGuid);
+                selection.AddToAllFeatures(PackTacticsSharedFeats.ShakeItOffGuid);
+                selection.AddToAllFeatures(PackTacticsSharedFeats.ShieldWallGuid);
+                selection.AddToAllFeatures(PackTacticsSharedFeats.TandemTripGuid);
+                selection.Configure();
 
                 // Create the effect buff that shares teamwork feats (applied to pets/summons in the aura)
                 var effectBuff = BuffConfigurator.New(effectBuffName, effectBuffGuid)
@@ -53,6 +67,11 @@ namespace AviaryClasses.Classes.Features {
                     .Configure();
 
                 // Create the area effect (30 feet)
+                var companionOrSummonCondition = ConditionsBuilder.New()
+                    .UseOr()
+                    .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAnimalCompanion>()
+                    .HasFact(BuffRefs.SummonedUnitBuff.ToString());
+
                 var area = AbilityAreaEffectConfigurator.New(areaName, areaGuid)
                     .SetAffectEnemies(false)
                     .SetTargetType(Kingmaker.UnitLogic.Abilities.Blueprints.BlueprintAbilityAreaEffect.TargetType.Ally)
@@ -63,8 +82,7 @@ namespace AviaryClasses.Classes.Features {
                             .Conditional(
                                 conditions: ConditionsBuilder.New()
                                     .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAlly>()
-                                    .Add<Kingmaker.UnitLogic.Mechanics.Conditions.ContextConditionIsAnimalCompanion>(
-                                        c => c.Not = false)
+                                    .AddOrAndLogic(companionOrSummonCondition)
                                     .Build(),
                                 ifTrue: ActionsBuilder.New()
                                     .ApplyBuffPermanent(effectBuffGuid, isNotDispelable: true, asChild: true)
@@ -91,7 +109,7 @@ namespace AviaryClasses.Classes.Features {
                     .SetDescription("BeastTamerPackTactics.Description")
                     .SetIcon(FeatureSelectionRefs.TeamworkFeat.Reference.Get().Icon)
                     .SetIsClassFeature(true)
-                    .AddFacts(new() { selection, auraBuffGuid })
+                    .AddFacts(new() { auraBuffGuid })
                     .Configure();
 
                 Logger.Info("Pack Tactics feature configured successfully");

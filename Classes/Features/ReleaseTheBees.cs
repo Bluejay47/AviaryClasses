@@ -92,14 +92,25 @@ namespace AviaryClasses.Classes.Features {
                     )
                     .AddAbilityEffectRunAction(
                         actions: ActionsBuilder.New()
-                            .DealDamage(
-                                damageType: DamageTypes.Force(),
-                                value: damageValue
+                            .SavingThrow(
+                                type: Kingmaker.EntitySystem.Stats.SavingThrowType.Reflex,
+                                onResult: ActionsBuilder.New()
+                                    .ConditionalSaved(
+                                        failed: ActionsBuilder.New()
+                                            .DealDamage(
+                                                damageType: DamageTypes.Force(),
+                                                value: damageValue
+                                            )
+                                            .SpawnFx(ElementalEffects.WaspsInfest),
+                                        succeed: ActionsBuilder.New()
+                                            .DealDamage(
+                                                damageType: DamageTypes.Force(),
+                                                value: damageValue,
+                                                halfIfSaved: true
+                                            )
+                                            .SpawnFx(ElementalEffects.WaspsInfest)
+                                    )
                             )
-                    )
-                    .AddAbilityDeliverProjectile(
-                        projectiles: new() { ElementalEffects.SwarmInfest },
-                        type: AbilityProjectileType.Simple
                     )
                     .AddContextRankConfig(
                         ContextRankConfigs.CasterLevel()

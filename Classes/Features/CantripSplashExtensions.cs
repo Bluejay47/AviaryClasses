@@ -53,7 +53,10 @@ namespace AviaryClasses.Classes.Features {
         protected abstract DamageEnergyType EnergyType { get; }
         protected abstract string AbilityRef { get; }
 
-        public void Configure(ContextDiceValue splashDice, ConditionsBuilder splashCondition) {
+        public void Configure(ContextDiceValue splashDice, ConditionsBuilder splashCondition, LuckLevels luckLevel) {
+
+            int[] targets = [1, 2, 2, 2, 3];
+
             ActionList internalSplashAction = ActionsBuilder.New()
                 .Conditional(
                     conditions: ConditionsBuilder.New().IsMainTarget(),
@@ -72,7 +75,7 @@ namespace AviaryClasses.Classes.Features {
                 .OnRandomTargetsAround(
                     actions: internalSplashAction,
                     onEnemies: true,
-                    numberOfTargets: RandomUtils.GetRandomValue<int>([2, 3]),
+                    numberOfTargets: RandomUtils.GetRandomValue<int>(targets[(int)luckLevel]),
                     radius: 20.Feet()
                 )
                 .Build();
@@ -110,11 +113,11 @@ namespace AviaryClasses.Classes.Features {
     }
 
     public static class CantripSplashFactory {
-        public static void ConfigureAllSplashExtensions(ContextDiceValue splashDice, ConditionsBuilder splashCondition) {
-            new IgnitionSplashExt().Configure(splashDice, splashCondition);
-            new RayOfFrostSplashExt().Configure(splashDice, splashCondition);
-            new AcidSplashSplashExt().Configure(splashDice, splashCondition);
-            new JoltSplashExt().Configure(splashDice, splashCondition);
+        public static void ConfigureAllSplashExtensions(ContextDiceValue splashDice, ConditionsBuilder splashCondition, LuckLevels luckLevel) {
+            new IgnitionSplashExt().Configure(splashDice, splashCondition, luckLevel);
+            new RayOfFrostSplashExt().Configure(splashDice, splashCondition, luckLevel);
+            new AcidSplashSplashExt().Configure(splashDice, splashCondition, luckLevel);
+            new JoltSplashExt().Configure(splashDice, splashCondition, luckLevel);
         }
     }
 }

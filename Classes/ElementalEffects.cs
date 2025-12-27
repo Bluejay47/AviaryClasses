@@ -19,6 +19,8 @@ namespace AviaryClasses.Classes {
         // Special effect VFX
         public static readonly string SwarmInfest = "ae929793962242cabda8f409fea59bcb";   // Swarm-That-Walks Infest projectile
 
+        public static readonly string WaspsInfest = "18d8efbd926fe4443a1377e059a44e28";   // Cape of Wasps
+
         private static readonly Dictionary<DamageEnergyType, string> _energyToEffectMap = new Dictionary<DamageEnergyType, string> {
             { DamageEnergyType.Electricity, Lightning },
             { DamageEnergyType.Fire, Fire },
