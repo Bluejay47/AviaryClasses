@@ -161,22 +161,6 @@ Each archetype offers completely different approaches to familiar classes:
 - **Dustwalker:** Neutral-aligned monk focused on practical survival and leadership over mystical abilities
 - **Beast Tamer (AC):** Convert Bard from party buffer to pet/summon coordinator with teamwork tactics
 
-### **Mechanical Innovation**
-- **Intelligence-based Kineticist** with no burn mechanics (balanced by Water-only element restriction)
-- **Ranged Spell Combat** and **Spell Strike** for mounted archery builds
-- **Scaling cantrip damage** with metamagic-like enhancements and ricochet effects
-- **Full animal companion integration** across multiple archetypes
-- **Elemental restriction for balance** - Life Sensate trades damage potential for healing
-- **Teamwork feat sharing via aura** - Beast Tamer's Pack Tactics inspired by mythic-level mechanics but balanced for regular classes
-
-### **Party Synergy**
-- Life Sensate provides healing support
-- Arcane Skirmisher offers mobile magical archery
-- Keen-Eyed Adventurer (AC) delivers practical cantrip usage
-- Dustwalker brings survival expertise and alignment flexibility to Monks
-- Beast Tamer (AC) coordinates pet-based parties with enhanced summons and teamwork tactics, providing relief for feat allocation and allowing a more flexible summoner build
-- Multiple animal companions expand tactical options
-
 ---
 
 ## 📋 **TECHNICAL DETAILS**
@@ -257,3 +241,4 @@ We'll review each request and add safe items to the whitelist. Advanced users ca
 Fixes vanilla bug where Arcane Weapon Enchantment doesn't work when Enduring Blade is active and the Magus is mounted. The fix prevents the mount's weapon enchantment logic from clearing the rider's weapon pool.
 
 ---
+
