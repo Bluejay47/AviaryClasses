@@ -38,7 +38,7 @@ A mod adding **five unique archetypes** and a **magical companion item** to expa
 - **Specialized archery feats** progression
 
 **Level Progression:**
-- **Level 1:** Arcane Mount, Ranged Spell Combat (Shortbow), Weapon Focusclaude
+- **Level 1:** Arcane Mount, Ranged Spell Combat (Shortbow), Weapon Focus
 - **Level 2:** **Ranged Spell Strike** - Apply touch spells through arrows
 - **Level 8:** **Dimensional Ride** - Teleport with your mount
 - **Level 14:** **Greater Dimensional Ride** - Enhanced mobility options
@@ -241,4 +241,5 @@ We'll review each request and add safe items to the whitelist. Advanced users ca
 Fixes vanilla bug where Arcane Weapon Enchantment doesn't work when Enduring Blade is active and the Magus is mounted. The fix prevents the mount's weapon enchantment logic from clearing the rider's weapon pool.
 
 ---
+
 
